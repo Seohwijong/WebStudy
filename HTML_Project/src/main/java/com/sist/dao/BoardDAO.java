@@ -137,8 +137,180 @@ public class BoardDAO {
 		return total;
 	}
 	// 5-2. 상세보기 => 조회수 증가 (UPDATE) , 상세볼 게시물 읽기 (SELECT)  
+	public BoardVO boardDetailData(int no)
+	{
+		BoardVO vo=new BoardVO();
+		try
+		{
+			getConnection();
+			String sql="UPDATE freeboard SET hit=hit+1 WHERE no="+no;
+			ps=conn.prepareStatement(sql);
+			ps.executeUpdate();
+			
+			sql="SELECT no,name,subject,content,TO_CHAR(regdate,'yyyy-MM-dd'),hit,pwd FROM freeboard "
+					+ "WHERE no="+no;
+			ps=conn.prepareStatement(sql);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			vo.setNo(rs.getInt(1));
+			vo.setName(rs.getString(2));
+			vo.setSubject(rs.getString(3));
+			vo.setContent(rs.getString(4));
+			vo.setDbday(rs.getString(5));
+			vo.setHit(rs.getInt(6));
+			vo.setPwd(rs.getString(7));
+			rs.close();
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+		return vo;
+	}
 	// 5-3. 게시물 등록 => INSERT
-	// 5-4. 수정 (UPDATE) => 먼저 입력된 게시물 읽기 , 실제 수정 (비밀번호 검색)
+	// 용도 (SQL 문장 사용법 , HTML 태그 => 웹 사이트 개발)
+	public void boardInsert(BoardVO vo)
+	{
+		try
+		{
+			// 연결
+			getConnection();
+			
+			String sql="INSERT INTO freeboard(no,name,subject,content,pwd) Values(fb_no_seq.nextval,?,?,?,?)";
+			
+			ps=conn.prepareStatement(sql);
+			
+			ps.setString(1, vo.getName());
+			ps.setString(2, vo.getSubject());
+			ps.setString(3, vo.getContent());
+			ps.setString(4, vo.getPwd());
+			
+			ps.executeUpdate();
+		}
+		catch(Exception ex) 
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+		
+	}
+	// 5-4. 수정 (UPDATE) => 먼저 입력된 게시물 읽기 // 상세보기에서 , 실제 수정 (비밀번호 검색) // Update로 insert랑 똑같이
+	public BoardVO boardUpdateData(int no)
+	{
+		BoardVO vo=new BoardVO();
+		try
+		{
+			getConnection();
+			String sql="SELECT no,name,subject,content, TO_CHAR(regdate,'yyyy-MM-dd'),hit FROM freeboard WHERE no="+no;
+			ps=conn.prepareStatement(sql);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			vo.setNo(rs.getInt(1));
+			vo.setName(rs.getString(2));
+			vo.setSubject(rs.getString(3));
+			vo.setContent(rs.getString(4));
+			vo.setDbday(rs.getString(5));
+			vo.setHit(rs.getInt(6));
+			rs.close();
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+		return vo;
+	}
+	public boolean boardUpdate(BoardVO vo)
+	{
+		boolean bCheck=false;
+		try
+		{
+			getConnection();
+			String sql="SELECT pwd FROM freeboard WHERE no="+vo.getNo();
+			ps=conn.prepareStatement(sql);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			String db_pwd=rs.getString(1);
+			rs.close();
+			
+			if(db_pwd.equals(vo.getPwd()))
+			{
+				bCheck=true;
+
+				sql="UPDATE freeboard SET name=?,subject=?,content=? WHERE no=?";
+				ps=conn.prepareStatement(sql);
+				ps.setString(1, vo.getName());
+				ps.setString(2, vo.getSubject());
+				ps.setString(3, vo.getContent());
+				ps.setInt(4, vo.getNo());
+				ps.executeUpdate();
+				
+			}
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+		return bCheck;
+	}
+//	public BoardVO boardUpdate(int no, String pwd)
+//	{
+//		getConnection();
+//	
+//		String sql="INSERT INTO freeboard(no,name,subject,content,pwd) Values(fb_no_seq.nextval,?,?,?,?)";
+//		
+//		ps=conn.prepareStatement(sql);
+//		
+//		ps.setString(1, vo.getName());
+//		ps.setString(2, vo.getSubject());
+//		ps.setString(3, vo.getContent());
+//		ps.setString(4, vo.getPwd());
+//		
+//		ps.executeUpdate();
+//	}
 	// 5-5. 삭제 (DELETE) => 먼저 비밀번호 검색 true => 삭제 false => 실패띄우기
+	public boolean boardDelete(int no, String pwd)
+	{
+		boolean bCheck=false;
+		try
+		{
+			getConnection();
+			String sql="SELECT pwd FROM freeboard WHERE no="+no;
+			ps=conn.prepareStatement(sql);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			String db_pwd=rs.getString(1);
+			rs.close();
+			if(db_pwd.equals(pwd))
+			{
+				//삭제
+				sql="DELETE FROM freeboard WHERE no="+no;
+				ps=conn.prepareStatement(sql);
+				ps.executeQuery();
+				bCheck=true;
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+		return bCheck;
+	}
 	// 5-6. 찾기 (이름, 제목, 내용) => LIKE 
 }

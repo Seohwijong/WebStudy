@@ -13,7 +13,7 @@ public class DataCollection {
 	public void foodCategoryData()
 	{
 		// 오라클에 추가
-		FoodDAO dao=FoodDAO.newInstance();
+		FoodDAO1 dao=FoodDAO1.newInstance();
 		try
 		{
 			// 사이트 연결
@@ -57,7 +57,7 @@ public class DataCollection {
 	}
 	public void foodDetailData()
 	{
-		FoodDAO dao=FoodDAO.newInstance();
+		FoodDAO1 dao=FoodDAO1.newInstance();
 		try
 		{
 			List<CategoryVO> list=dao.foodCategoryData();

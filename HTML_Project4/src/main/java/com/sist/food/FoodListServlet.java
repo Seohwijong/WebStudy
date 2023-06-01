@@ -27,8 +27,8 @@ public class FoodListServlet extends HttpServlet {
 		out.println("<head>");
 		out.println("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">");
 		out.println("<style>");
-		out.println("<.container{margin-top:50px}>");
-		out.println("<.row{");
+		out.println(".container{margin-top:50px}");
+		out.println(".row{");
 		out.println("margin:0px auto");
 		out.println("width:1024px}</style>");
 		out.println("</head>");
@@ -50,10 +50,10 @@ public class FoodListServlet extends HttpServlet {
 			out.println("<table class=table>");
 			out.println("<tr>");
 			out.println("<td width=30% align=center rowspan=4>");
-			out.println("<img src=\""+vo.getPoster()+"\" class=img-rounded style=\"width:240px;height:150px\">");
+			out.println("<a href=FoodDetailServlet?fno="+vo.getFno()+"><img src="+vo.getPoster()+" style=\"width:240;height:150px\"></a>");
 			out.println("</td>");
 			out.println("<td width=70%>");
-			out.println(vo.getName()+"&nbsp;<span style=\"color:orange\">"+vo.getScore()+"</span>");
+			out.println("<a href=FoodDetailServlet?fno="+vo.getFno()+">"+vo.getName()+"</a>&nbsp;<span style=\"color:orange\">"+vo.getScore()+"</span>");
 			out.println("</td>");
 			
 			out.println("</tr>");

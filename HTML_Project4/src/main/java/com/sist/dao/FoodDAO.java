@@ -170,34 +170,54 @@ public class FoodDAO {
 	}
 	// 5-3. 맛집 상세보기
 	//		FoodVO
-	public FoodVO food_detail_data(int fno)
+	public FoodVO FoodDetilData(int fno)
 	{
 		FoodVO vo=new FoodVO();
 		try
 		{
 			getConnection();
-			String sql="SELECT fno,name,address,phone,type,price,parking,time,menu,poster FROM food_house WHERE fno="+fno;
+			String sql="SELECT fno,cno,name,poster,phone,type,address,time,parking,menu,price,score FROM food_house WHERE fno=?";
+//			String sql="SELECT fno,name,address,phone,type,price,parking,time,menu,poster FROM food_house WHERE fno="+fno;
 			ps=conn.prepareStatement(sql);
+			// ?에 값 채우기 => JSP/프로젝트
+			// 2차 => Mybatis , 보안 (비밀번호 암호화) , 실시간 => Betch
+			// 3차 => 오라클(MySQL) , JPA
+			// 기반 => MSA 기반 CI/CD
+			ps.setInt(1, fno);
+			// 실행 요청 => fno
 			ResultSet rs=ps.executeQuery();
-			while(rs.next())
-			{
-				vo.setFno(rs.getInt(1));
-				vo.setName(rs.getString(2));
-				String address=rs.getString(3);
-				address=address.substring(0,address.lastIndexOf("지"));
-				vo.setAddress(address.trim());
-				vo.setPhone(rs.getString(4));
-				vo.setType(rs.getString(5));
-				vo.setPrice(rs.getString(6));
-				vo.setParking(rs.getString(7));
-				vo.setTime(rs.getString(8));
-				vo.setMenu(rs.getString(9));
-				String poster=rs.getString(10);
-				poster=poster.substring(0,poster.indexOf("^"));
-				poster=poster.replace("#", "&");
-				vo.setPoster(poster);
-				
-			}
+			rs.next();
+			
+//			vo.setFno(rs.getInt(1));
+//			vo.setCno(rs.getInt(2));
+//			vo.setName(rs.getString(3));
+//			String poster=rs.getString(4);
+//			poster=poster.substring(0,poster.indexOf("^"));
+//			poster=poster.replace("#", "&");
+//			vo.setPoster(poster);
+//			vo.setPhone(rs.getString(5));
+//			vo.setType(rs.getString(6));
+//			String address=rs.getString(7);
+//			address=address.substring(0,address.lastIndexOf("지"));
+//			vo.setAddress(address.trim());
+//			vo.setTime(rs.getString(8));
+//			vo.setParking(rs.getString(9));
+//			vo.setMenu(rs.getString(10));
+//			vo.setPrice(rs.getString(11));
+//			vo.setScore(rs.getShort(12));
+			vo.setFno(rs.getInt(1));
+			vo.setCno(rs.getInt(2));
+			vo.setName(rs.getString(3));
+			vo.setPoster(rs.getString(4));
+			vo.setPhone(rs.getString(5));
+			vo.setType(rs.getString(6));
+			vo.setAddress(rs.getString(7));
+			vo.setTime(rs.getString(8));
+			vo.setParking(rs.getString(9));
+			vo.setMenu(rs.getString(10));
+			vo.setPrice(rs.getString(11));
+			vo.setScore(rs.getDouble(12));
+			
 			rs.close();
 			
 		}
@@ -213,13 +233,42 @@ public class FoodDAO {
 	}
 	// 5-4. 맛집 검색 ==>> detail로 해서 가져오면 안되나?
 	// 		List<FoodVO>
-	public List<FoodVO> food_house_find_data(String name)
+	public List<FoodVO> food_house_find_data(String addr,int page)
 	{
 		List<FoodVO> list=new ArrayList<FoodVO>();
 		try
 		{
 			getConnection();
-			String sql="SELECT fno,name,address,phone,type,price,parking,time,menu,poster FROM food_house WHERE name LIKE '%"+name+"%'";
+			String sql="SELECT fno,name,poster,score,num "
+					 +"FROM(SELECT fno,name,poster,score,rownum as num "
+					 +"FROM (SELECT fno,name,poster,score "
+					 +"FROM food_location "
+					 +"WHERE address LIKE '%'||?||'%')) "
+					 +"WHERE num BETWEEN ? AND ?";
+//			String sql="SELECT fno,name,poster,score FROM food_location WHERE address LIKE '%"+addr+"%'";
+//			String sql="SELECT fno,name,address,phone,type,price,parking,time,menu,poster FROM food_house WHERE name LIKE '%"+name+"%'";
+			ps=conn.prepareStatement(sql);
+			int rowSize=12;
+			int start=(page-1)*rowSize+1;
+			int end=page*rowSize;
+			ps.setString(1, addr);
+			ps.setInt(2, start);
+			ps.setInt(3, end);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				FoodVO vo=new FoodVO();
+				vo.setFno(rs.getInt(1));
+				vo.setName(rs.getString(2));
+				String poster=rs.getString(3);
+				poster=poster.substring(0,poster.indexOf("^"));
+				poster=poster.replaceAll("#", "&");
+				vo.setPoster(poster);
+				vo.setScore(rs.getDouble(4));
+				list.add(vo);
+				System.out.println(vo.getName());
+			}
+			rs.close();
 		}
 		catch(Exception ex)
 		{
@@ -231,4 +280,30 @@ public class FoodDAO {
 		}
 		return list;
 	}
+	// 5-5-1 총페이지
+	public int food_row_count(String addr)
+	{
+		int count=0;
+		try
+		{
+			getConnection();
+			String sql="SELECT COUNT(*) FROM food_location WHERE address LIKE '%'||?||'%'";
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, addr);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			count=rs.getInt(1);
+			rs.close();
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+		return count;
+	}
+	// 5-5. 댓글(CURD) => 로그인
 }

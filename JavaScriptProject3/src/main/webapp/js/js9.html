@@ -1,0 +1,57 @@
+<!-- onclick -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+let i=0;
+window.onload=function(){
+	let r=document.querySelector("#read");
+	r.onmouseover=function(){
+		r.style.cursor="pointer";
+	}
+	r.onmouseout=function(){
+		r.style.cursor="none";
+	}
+	r.onclick=function(){
+		if(i==0)
+		{
+			let ss=document.querySelector("#s");
+			ss.style.display='';
+			r.textContent="닫기";
+			i=1;
+		}
+		else
+		{
+			let ss=document.querySelector("#s");
+			ss.style.display='none';
+			r.textContent="더보기";
+			i=0;
+		}
+	}
+	// form 태그에서 submit을 제거 => 이벤트 제거
+	// e.defaultPrevanet()
+	documnet.querySelector("#click").onclick=function(){
+		return false;
+	}
+}
+</script>
+</head>
+<body>
+	<a href="http://www.naver.com" id="click">Naver</a>
+	<pre>
+	딘딘 "조현영과 2주 사귀었다" 고백에 조현영 급당황 "손도 안잡고 뽀뽀도 안해"('미우새')[SC리뷰]
+	</pre>
+	<span id="read">더보기</span>
+	<p>
+	<span style="display:none" id="s">
+	[스포츠조선 고재완 기자] SBS 예능 '미운우리새끼'에 딘딘과 걸그룹 레인보우 조현영이 등장해 눈길을 끌었다.
+	18일 방송에서 딘딘 데뷔 10주년 파티 조현영이 등장하자, 이상민은 조현영에게 "딘딘이랑 동거하지 않았나"고 물었다.
+	실제로 이들은 유튜브에서 '우리 결혼했어요' 콘텐츠를 촬영한 바 있다. 딘딘은 "중학교 때 만났다. 초중학교 동창사이"라고 털어놨다. 딘딘의 죽마고우인 벌구는 "진짜 사귀었던 사이"라 주장했지만 딘딘은 "2주였다"며 "얘는 그냥 살며시 나한테 스며들었다. 옆자리에 앉다가 자연스럽게 왔다"고 말했다. 하지만 조현영은 "사귄거 아니다, 뭐라는 거냐"라고 발끈했다.
+	조현영은 "난 기억 안나는데 딘딘이 날 찼다더라"며 "그 당시 손도 안 잡고 뽀뽀도 안 했다, 아무것도 안했다"며 "새벽에 몰래 탈출해서 김밥 사먹었다"고 말하자 딘딘은 "책상 밑에서 주현영이 손을 툭툭 치긴했다"고 전했다.		
+	이어 딘딘은 "내가 현영이와 헤어지고 싶어서 메신저로 헤어지자고 했다. '내 친구가 널 좋아한다'고 말한 후 벌구에게 "미안하다"고 했다"면서 "그런데 조현영이 벌구에게 전화해 '너 나 좋아해'라고 묻고 결국 또 둘이 사귀었다"고 털어놨다. 덧붙여 "사귀었지만 아무 일도 없었다. 별일이 있었다면 셋이 지금까지 친하게 지내지도 못했을 것"이라고 못박기도 했다.
+	슬리피는 조현영과 딘딘에게 "40세까지 서로 결혼 안 하면 혹시"라고 물었고 딘딘은 "혹시 70세까지 결혼 안하면? 40세는 금방이다"고 농담했다. 이에 김영옥은 "그럼 오늘 언약식해봐라"고 분위기를 몰았고 실제로 김영옥이 주례, 사회는 이상민, 벌구와 슬리피가 축가로 결정되자 "10주년이 아닌 피로연이다"고 말하기도 했다.
+	</span>
+</body>
+</html>

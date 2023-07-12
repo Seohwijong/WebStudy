@@ -66,7 +66,7 @@ public class FreeBoardDAO {
 		int total=0;
 		try {
 			conn=db.getConnection();
-			String sql = "SELECT CEIL(COUNT(*)/10.0) FROM yori_freeboard";
+			String sql = "SELECT CEIL(COUNT(*)/8.0) FROM yori_freeboard";
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			rs.next();

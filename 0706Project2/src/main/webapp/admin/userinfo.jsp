@@ -11,7 +11,7 @@
 <div style="margin-left: 490px"> <!-- 사이즈 보기 -->
 	<h1>유저정보 보기</h1>
 	</div>
-	<table class="table" style="width: 1300px"> <!-- 사이즈 보기 -->
+	<table class="table" style="width: 1400px"> <!-- 사이즈 보기 -->
 		<tr>
 			<th>아이디</th>
 			<th>이름</th>
@@ -24,7 +24,7 @@
 			<th></th>
 			<th></th>
 		</tr>	
-		<c:forEach var="vo" items="${list }">
+		<c:forEach var="vo" items="${ulist }">
 		<tr>
 			<td>${vo.id }</td>
 			<td>${vo.name }</td>

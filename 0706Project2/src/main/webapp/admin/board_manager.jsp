@@ -10,6 +10,7 @@
 <body>
 <div style="margin-left: 450px"> <!-- 사이즈 보기 -->
 	<h1>게시글 정보 보기</h1>
+	
 </div>
 <table class="table" style="width: 1400px;">
            <tr>

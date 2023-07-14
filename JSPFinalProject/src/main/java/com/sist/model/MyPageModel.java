@@ -19,6 +19,7 @@ public class MyPageModel {
   {
 	  request.setAttribute("mypage_jsp", "../mypage/mypage_reserve.jsp");
 	  request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
+	  CommonModel.commonRequestData(request);
 	  return "../main/main.jsp";
   }
   @RequestMapping("mypage/mypage_reserve.do")

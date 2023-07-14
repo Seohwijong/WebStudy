@@ -20,7 +20,7 @@ $(function(){
 		$('#r_fno').val(fno);
 		$.ajax({
 			type:'post',
-			url:'diary.do',
+			url:'../reserve/diary.do',
 			data:{"fno":fno},
 			success:function(result)
 			{

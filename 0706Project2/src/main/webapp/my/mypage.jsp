@@ -55,7 +55,7 @@
 	 	 	  <div style="height: 30px"></div>
 	 	 	  <table class="table" >
 	 	 	  <tr height="35">
-	 	 	   <td class="text-center"><a href="mypage.do?mode=1" style="color:black">내정보</a></td>
+	 	 	   <td class="text-center"><a href="../my/myinfo.do" style="color:black">내정보</a></td>
 	 	 	  </tr>
 	 	 	   <tr height="35">
 	 	 	   <td class="text-center"><a href="mypage.do?mode=2" style="color:black">찜목록</a></td>

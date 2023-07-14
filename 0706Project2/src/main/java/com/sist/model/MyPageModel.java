@@ -12,38 +12,14 @@ import com.sist.vo.MemberVO;
 public class MyPageModel {
 	@RequestMapping("my/mypage.do")
 	public String my_page(HttpServletRequest request, HttpServletResponse response) {
-		String mode=request.getParameter("mode");
-		String update=request.getParameter("update");
-		if(update==null)
-			update="0";
-	 	if(mode==null)
-	 		mode="1";
-	 	String jsp="";
-	 	int index=Integer.parseInt(mode);
-	 	switch(index)
-	 	{
-	 	case 1:
-	 		jsp="myinfo.jsp";
-	 		break;
-	 	case 2:
-	 		jsp="myinfo2.jsp";
-	 		break;
-	 	}
-	 	if(Integer.parseInt(update)==1)
- 			jsp="myinfo2.jsp";
 	 	try
 		{
 			request.setCharacterEncoding("UTF-8");
 		}catch(Exception ex) {}
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
-		
 		MyDAO dao=MyDAO.newInstance();
-		
 		MemberVO vo=dao.myInfo(id);
-	 	System.out.println(jsp);
-	 	
-	 	request.setAttribute("jsp", jsp);
 	 	request.setAttribute("vo", vo);
 		request.setAttribute("main_jsp", "../my/mypage.jsp");
 		 return "../jsp/main.jsp";
@@ -54,22 +30,61 @@ public class MyPageModel {
 		{
 			request.setCharacterEncoding("UTF-8");
 		}catch(Exception ex) {}
-		String mode=request.getParameter("mode");
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
-		String jsp="myinfo2.jsp";
-		
-		try
-		{
-			PrintWriter out=response.getWriter();
-			out.println(jsp); //=> Ajax에서 읽어서 처리
-		}catch(Exception ex) {}
-
 		MyDAO dao=MyDAO.newInstance();
 		MemberVO vo=dao.myInfo(id);
 		request.setAttribute("vo", vo);
-		request.setAttribute("jsp", jsp);
+		request.setAttribute("jsp", "../my/myinfo.jsp");
 		request.setAttribute("main_jsp", "../my/mypage.jsp");
-		 return "../my/mypage.jsp";
+		 return "../jsp/main.jsp";
+	}
+	@RequestMapping("my/my_update.do")
+	public String my_page_update(HttpServletRequest request, HttpServletResponse response)
+	{
+		try
+		{
+			request.setCharacterEncoding("UTF-8");
+		}
+		catch(Exception ex) {}
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		MyDAO dao=MyDAO.newInstance();
+		MemberVO vo=dao.myInfo(id);
+		request.setAttribute("vo", vo);
+		request.setAttribute("jsp", "../my/my_update.jsp");
+		request.setAttribute("main_jsp", "../my/mypage.jsp");
+		
+		return "../jsp/main.jsp";
+	}
+	@RequestMapping("my/my_update_ok.do")
+	public String my_update_ok(HttpServletRequest request, HttpServletResponse response)
+	{
+//		name=?,nickname=?,birthday=?,email=?,sex=?,post=?,addr1=?,addr2=?
+		try
+		{
+			request.setCharacterEncoding("UTF-8");
+		}
+		catch(Exception ex) {}
+		String id=request.getParameter("id");
+		String nickname=request.getParameter("nickname");
+		String email=request.getParameter("email");
+		String post=request.getParameter("post");
+		String addr1=request.getParameter("addr1");
+		String addr2=request.getParameter("addr2");
+		String phone=request.getParameter("phone");
+		MemberVO vo=new MemberVO();
+		vo.setId(id);
+		vo.setNickname(nickname);
+		vo.setEmail(email);
+		vo.setPost(post);
+		vo.setAddr1(addr1);
+		vo.setAddr2(addr2);
+		vo.setPhone(phone);
+		
+		MyDAO dao=MyDAO.newInstance();
+		dao.myinfoUpdate(vo);
+		
+		return "redirect: ../my/myinfo.do";
 	}
 }

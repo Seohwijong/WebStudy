@@ -56,10 +56,18 @@ $(function(){
 		<tr>
 			<th>주소</th>
 			<td>${vo.addr1 }</td>
+		</tr>
+		<tr>
+			<th>주소</th>
+			<td>${vo.addr2 }</td>
 		</tr>	
+		<tr>
+			<th>전화번호</th>
+			<td>${vo.phone }</td>
+		</tr>		
 	</table>
 	<div class="text-right">
-		<a href="mypage.do?mode=1&update=1" class="btn btn-sm btn-danger update">수정</a>
+		<a href="../my/my_update.do" class="btn btn-sm btn-danger update">수정</a>
 <!-- 		<input type=button value="수정" class="btn btn-sm btn-danger update" > -->
 		<a href="#" class="btn btn-sm btn-danger">회원탈퇴</a>
 	</div>

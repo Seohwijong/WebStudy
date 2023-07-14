@@ -88,7 +88,7 @@
                           	 ${flist.title.substring(0,10) }
                           </c:if>
                        
-                          <c:if test="${flist.title.length()<10 }">
+                          <c:if test="${flist.title.length()<20 }">
                           	 ${flist.title }
                           </c:if>
                         </h2>
@@ -137,12 +137,12 @@
               	  <a href="../list/recipeDetail.do?rdno=${rlist.rdno }">
                     <img src="${rlist.poster }" alt="Image" class="img-fluid rounded" style="width:250px; height:150px; border-radius:20px;">
                     <figcaption class="d-flex align-items-center justify-content-center">
-                         <h2>
-                        <c:if test="${rlist.title.length()>10 }">
-                          	 ${rlist.title.substring(0,10) }
+                         <h2 style="font-size: 20px">
+                        <c:if test="${rlist.title.length()>30 }">
+                          	 ${rlist.title.substring(0,30) }
                           </c:if>
                        
-                          <c:if test="${rlist.title.length()<10 }">
+                          <c:if test="${rlist.title.length()<30 }">
                           	 ${rlist.title }
                           </c:if>
                         </h2>

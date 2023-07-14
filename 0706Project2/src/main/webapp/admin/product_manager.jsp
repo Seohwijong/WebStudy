@@ -33,16 +33,16 @@ $(function(){
 	<div style="margin-left: 490px"> <!-- 사이즈 보기 -->
 	<h1>상품정보 보기</h1>
 	</div>
-	<table class="table" style="width: 1330px"> <!-- 사이즈 보기 -->
+	<table class="table" style="width: 1400px"> <!-- 사이즈 보기 -->
 		<tr>
-			<th style="width: 50px">번호</th>
+			<th style="width: 60px">번호</th>
 			<th style="width: 200px">이름</th>
 			<th style="width: 30px"></th>
 			<th style="width: 300px">부제목</th>
 			<th style="width: 70px">할인률</th>
 			<th style="width: 100px">할인가</th>
-			<th style="width: 110px">기본가</th>
-			<th style="width: 120px">첫구매 할인가</th>
+			<th style="width: 120px">기본가</th>
+			<th style="width: 130px">첫구매 할인가</th>
 			<th style="width: 50px">별점</th>
 			<th style="width: 90px">배달비</th>
 			<th style="width: 70px">수량</th>
@@ -77,7 +77,7 @@ $(function(){
 			         <input type=hidden name=pdno value="${vo.pdno}">
 			         <%-- bno는 다시 detail.do로 이동 --%>
 			         <input type=hidden name=no value="${vo.pdno }">
-			         <td style="width: 50px">${vo.pdno }</td>	
+			         <td style="width: 65px">${vo.pdno }</td>	
 <%-- 			         <td><textarea>${vo.pdno }</textarea></td> --%>
 					 <td style="width: 170px"><textarea style="width: 170px">${vo.title }</textarea></td>
 <%-- 					<td><img src="${vo.poster }" style="width: 30px;height: 30px"></td> --%>

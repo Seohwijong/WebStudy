@@ -1,27 +1,33 @@
 package com.sist.vo;
 /*
- * FNO                NOT NULL NUMBER
- CNO                  NUMBER
- NAME                  NOT NULL VARCHAR2(100)
- SCORE                 NUMBER(2,1)
- ADDRESS               NOT NULL VARCHAR2(300)
- PHONE               NOT NULL VARCHAR2(20)
- TYPE                NOT NULL VARCHAR2(30)
- PRICE             VARCHAR2(30)
- PARKING              VARCHAR2(30)
- TIME                  VARCHAR2(20)
- MENU                    CLOB
- GOOD                   NUMBER
- SOSO                   NUMBER
- BAD                   NUMBER
- POSTER                NOT NULL VARCHAR2(4000)
+ FNO      NOT NULL NUMBER
+ CNO      NUMBER
+ NAME     NOT NULL VARCHAR2(100)
+ SCORE    NUMBER(2,1)
+ ADDRESS  NOT NULL VARCHAR2(300)
+ PHONE    NOT NULL VARCHAR2(20)
+ TYPE     NOT NULL VARCHAR2(30)
+ PRICE    VARCHAR2(30)
+ PARKING VARCHAR2(30)
+ TIME    VARCHAR2(20)
+ MENU  CLOB
+ GOOD   NUMBER
+ SOSO   NUMBER
+ BAD    NUMBER
+ POSTER NOT NULL VARCHAR2(4000)
  */
 public class FoodVO {
-	private int fno,cno,good,soso,bad,hit;
-	private double score;
-	private String name,address,phone,type,price,parking,time,menu,poster;
-	private String msg,rname;
+    private int fno,cno,good,soso,bad,hit;
+    private double score;
+    private String name,address,phone,type,price,parking,time,menu,poster;
+    private String msg,rname,reserve_day;
 	
+    public String getReserve_day() {
+		return reserve_day;
+	}
+	public void setReserve_day(String reserve_day) {
+		this.reserve_day = reserve_day;
+	}
 	public String getRname() {
 		return rname;
 	}
@@ -130,5 +136,5 @@ public class FoodVO {
 	public void setPoster(String poster) {
 		this.poster = poster;
 	}
-	
+	  
 }

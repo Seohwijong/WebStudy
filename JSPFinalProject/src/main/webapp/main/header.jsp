@@ -69,8 +69,8 @@ $(function(){
     <div class="fl_right">
      <c:if test="${sessionScope.id==null }">
        <ul class="inline">
-        <li><i class="fa fa-phone"></i><input type=text name=id class="input-sm" size=10 id=id></li>
-        <li><i class="fa fa-envelope-o"></i> <input type=password name=pwd class="input-sm" size=10 id=pwd></li>
+        <li><i class="entypo-user"></i><input type=text name=id class="input-sm" size=10 id=id placeholder="아이디"></li>
+        <li><i class="entypo-brush"> <input type=password name=pwd class="input-sm" size=10 id=pwd placeholder="비밀번호"></li>
          <li><input type=button value="로그인" class="btn btn-sm btn-danger" id="logBtn"></li>
        </ul>
       </c:if>
@@ -121,7 +121,7 @@ $(function(){
                 request.getAttribute("name")
           --%>
          <c:if test="${sessionScope.id!=null }">
-          <li><a href="pages/full-width.html">맛집 예약</a></li>
+          <li><a href="../reserve/reserve_main.do">맛집 예약</a></li>
           <li><a href="pages/sidebar-left.html">맛집 추천</a></li>
          </c:if>
         </ul>
@@ -148,7 +148,7 @@ $(function(){
       <li><a href="../goods/goods_list.do">레시피 스토어</a></li>
       <li><a class="drop" href="#">커뮤니티</a>
         <ul>
-          <li><a href="pages/gallery.html">공지사항</a></li>
+          <li><a href="../notice/notice_list.do">공지사항</a></li>
           <li><a href="../board/list.do">자유게시판</a></li>
          <c:if test="${sessionScope.id!=null }">
           <li><a href="pages/sidebar-left.html">묻고답하기</a></li>
@@ -160,7 +160,7 @@ $(function(){
           <li><a href="../mypage/mypage_main.do">마이페이지</a></li>
         </c:if>
         <c:if test="${sessionScope.admin=='y' }">
-          <li><a href="#">관리자페이지</a></li>
+          <li><a href="../adminpage/adminpage_main.do">관리자페이지</a></li>
         </c:if>
       </c:if>
       

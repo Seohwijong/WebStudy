@@ -69,7 +69,7 @@ $(function(){
 	<div class="text-right">
 		<a href="../my/my_update.do" class="btn btn-sm btn-danger update">수정</a>
 <!-- 		<input type=button value="수정" class="btn btn-sm btn-danger update" > -->
-		<a href="#" class="btn btn-sm btn-danger">회원탈퇴</a>
+		<a href="my_delete_ok.do" class="btn btn-sm btn-danger">회원탈퇴</a>
 	</div>
 </body>
 </html>

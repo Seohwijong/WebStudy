@@ -59,6 +59,10 @@ public class MyDAO {
 		}
 		return vo;
 	}
+	
+	
+	///////////////////////////////////////////////////////////////////////////////////
+	
 	public void myinfoUpdate(MemberVO vo)
 	{
 		try
@@ -79,6 +83,32 @@ public class MyDAO {
 			ps.setString(6, vo.getPhone());
 			
 			ps.setString(7, vo.getId());
+			
+			ps.executeUpdate();
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			db.disConnection(conn, ps);
+		}
+	}
+	
+	
+	
+	
+	public void myinfoDelete(String id)
+	{
+		try
+		{
+			conn=db.getConnection();
+			String sql="DELETE FROM project_member "
+					+ "WHERE id=?";
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, id);
+			
 			
 			ps.executeUpdate();
 		}

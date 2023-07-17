@@ -68,29 +68,29 @@ $(function(){
 		
 			
 			<td><span class="btn btn-xs btn-danger ups" data-no="${vo.pdno }" style="width: 70px">수정</span></td>
-			<td><input type="button" value="삭제" class="btn btn-sm btn-danger"></td>
+			<td><a href="product_delete.do?pdno=${vo.pdno }" class="btn btn-xs btn-danger" style="width: 70px">삭제</a></td>
 		</tr>	
 		
 		
 			<tr style="display: none" class="updates" id="u${vo.pdno }">
-			        <form method="post" action="#" class="inline">
+			        <form method="post" action="product_update_ok.do" class="inline">
 			         <input type=hidden name=pdno value="${vo.pdno}">
 			         <%-- bno는 다시 detail.do로 이동 --%>
 			         <input type=hidden name=no value="${vo.pdno }">
 			         <td style="width: 65px">${vo.pdno }</td>	
 <%-- 			         <td><textarea>${vo.pdno }</textarea></td> --%>
-					 <td style="width: 170px"><textarea style="width: 170px">${vo.title }</textarea></td>
+					 <td style="width: 170px"><textarea style="width: 170px" name=title value="${vo.title }">${vo.title }</textarea></td>
 <%-- 					<td><img src="${vo.poster }" style="width: 30px;height: 30px"></td> --%>
 					<td style="width: 30px"><img src="${vo.poster }" style="width: 30px;height: 30px"></td>
-					<td style="width: 240px"><textarea style="width: 240px">${vo.subject }</textarea></td>
-					<td style="width: 40px"><textarea style="width: 40px">${vo.sale }</textarea></td>
-					<td style="width: 70px"><textarea style="width: 80px">${vo.priced_sale }</textarea></td>
-					<td style="width: 80px"><textarea style="width: 90px">${vo.original_pri }</textarea></td>
-					<td style="width: 90px"><textarea style="width: 90px">${vo.first_pri }</textarea></td>
-					<td style="width: 30px"><textarea style="width: 30px">${vo.score }</textarea></td>
-					<td style="width: 60px"><textarea style="width: 70px">${vo.delivery_pri }</textarea></td>
-					<td style="width: 40px"><textarea style="width: 40px">${vo.goods_count }</textarea></td>
-		            <td style="width: 70px"><input type=submit value="수정" class="btn btn-sm btn-danger" style="width: 70px;height: 42px"></td>
+					<td style="width: 240px"><textarea style="width: 240px" name=subject value="${vo.subject }">${vo.subject }</textarea></td>
+					<td style="width: 40px"><textarea style="width: 40px" name=sale value="${vo.sale }">${vo.sale }</textarea></td>
+					<td style="width: 70px"><textarea style="width: 80px" name=priced_sale value="${vo.priced_sale }">${vo.priced_sale }</textarea></td>
+					<td style="width: 80px"><textarea style="width: 90px" name=original_pri value="${vo.original_pri }">${vo.original_pri }</textarea></td>
+					<td style="width: 90px"><textarea style="width: 90px" name=first_pri value="${vo.first_pri }">${vo.first_pri }</textarea></td>
+					<td style="width: 30px"><textarea style="width: 30px" >${vo.score }</textarea></td>
+					<td style="width: 60px"><textarea style="width: 70px" name=delivery_pri value="${vo.delivery_pri }">${vo.delivery_pri }</textarea></td>
+					<td style="width: 40px"><textarea style="width: 40px" name=goods_count value="${vo.goods_count }">${vo.goods_count }</textarea></td>
+		            <td style="width: 70px"><button class="btn btn-sm btn-danger" style="width: 70px;height: 42px">저장</button></td>
 		            <td style="width: 70px"></td>
 			        </form>
 			     </tr>
@@ -99,24 +99,6 @@ $(function(){
 <!-- 			<td><input type="button" value="판매중지" class="btn btn-sm btn-danger"></td> -->
 		</c:forEach>
 	</table>
-<!-- 	<div class="text-center"> -->
-<!-- 			<ul class="pagination" style="margin-left: 650px;width: 1000px;"> -->
-<%--   	 	  <c:if test="${pstartpage>1 }"> --%>
-<%--   	 	  	<li><a href="adminpage.do?mode=2&page=${pstartpage-1 }" style="font-size: 30px" >&lt;이전</a></li>  --%>
-<%--   	 	  </c:if> --%>
-<%--   	 	  <c:forEach var="i" begin="${pstartpage }" end="${pendpage }"> --%>
-<%--   	 	     <c:if test="${pcurpage==i }"> --%>
-<%--   	 	     <li class="active"><a href="adminpage.do?mode=2&page=${i}" style="font-size: 30px">${i }</a></li> --%>
-<%--   	 	     </c:if> --%>
-<%--   	 	     <c:if test="${pcurpage!=i }"> --%>
-<%--   	 	     <li class=""><a href="adminpage.do?mode=2&page=${i}" style="font-size: 30px">${i }</a></li> --%>
-<%--   	 	     </c:if> --%>
-<%--   	 	  </c:forEach> --%>
-<%--   	 	   <c:if test="${pendpage<ptotalpage }"> --%>
-<%--   	 	    <li><a href="adminpage.do?mode=2&page=${pendpage+1 }" style="font-size: 30px">다음&gt;</a></li> --%>
-<%--   	 	  </c:if> --%>
-<!--   	 	  	</ul> -->
-
 <!--   	 </div> -->
   	 <div class="container">
       <div class="row">
@@ -124,20 +106,20 @@ $(function(){
          <nav id="pagination" aria-label="Page navigation" style="margin-left:600px;">
 	            <ul class="pagination justify-content-center">
 		 			<c:if test="${pcurpage>1 }">
-		            <li class="page-item"><a class="page-link" href="adminpage.do?mode=2&page=${pcurpage>1?pcurpage-1:curpage }">Previous</a></li>
+		            <li class="page-item"><a class="page-link" href="product_manager.do?&page=${pcurpage>1?pcurpage-1:pcurpage }">Previous</a></li>
 					</c:if>
 					
 		             <c:forEach var="i" begin="${pstartpage }" end="${pendpage }">
 		             	<c:if test="${i==pcurpage }">
-		             	<li class="page-item"><a class="active" class="active" href="adminpage.do?mode=2&page=${i }">${i }</a></li>
+		             	<li class="page-item"><a class="active" class="active" href="product_manager.do?page=${i }">${i }</a></li>
 		             	</c:if>
 		             	<c:if test="${i!=pcurpage }">
-		             	<li class="page-item"><a class="page-link" class="active" href="adminpage.do?mode=2&page=${i }">${i }</a></li>
+		             	<li class="page-item"><a class="page-link" class="active" href="product_manager.do?page=${i }">${i }</a></li>
 		             	</c:if>
 		             </c:forEach> 
 		             
 	                <c:if test="${pcurpage<ptotalpage }">
-	                <li class="page-item"><a class="page-link" href="adminpage.do?mode=2&page=${pcurpage<ptotalpage?pcurpage+1:pcurpage }">Next</a></li>
+	                <li class="page-item"><a class="page-link" href="product_manager.do?page=${pcurpage<ptotalpage?pcurpage+1:pcurpage }">Next</a></li>
 	              </c:if>
 	            </ul>
 	        </nav>

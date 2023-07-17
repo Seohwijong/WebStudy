@@ -87,4 +87,16 @@ public class MyPageModel {
 		
 		return "redirect: ../my/myinfo.do";
 	}
+	
+	@RequestMapping("my/my_delete_ok.do")
+	public String user_delete(HttpServletRequest request,HttpServletResponse response)
+	{
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		MyDAO dao=MyDAO.newInstance();
+		dao.myinfoDelete(id);
+		System.out.println(id);
+		session.invalidate();
+		return "redirect:../jsp/main.do";
+	} // 자동으로 로그아웃까지 돼야하는데 안댐
 }

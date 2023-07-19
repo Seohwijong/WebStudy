@@ -7,41 +7,106 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <style type="text/css">
-.container{
-  margin-top: 20px;
-}
 .row{
   margin: 0px auto;
-  width:300px;
+  width:600px;
 }
 </style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-  <script>
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script>
   $( function() {
-    $( "#tabs" ).tabs();
-  } );
-  </script>
+      $( "#tabs" ).tabs();
+      $('#emailBtn').on('click',function(){
+    	  let email=$('#email').val();
+    	  if(email.trim()=="")
+    	  {
+    		  $('#email').focus();
+    		  return;
+    	  }
+    	  
+    	  $.ajax({
+    		  type:'post',
+    		  url:'../member/idfind_ok.do',
+    		  data:{"email":email},
+    		  success:function(result) // 200(정상수행)
+    		  {
+    			  let res=result.trim();
+    			  if(res==='NO')
+    			  {
+    				  //email이 없는 경우 => email이 존재하지 않습니다 
+    				  //email => UNIQUE 
+    				  $('#id_email').html('<span style="color:red">이메일이 존재하지 않습니다</span>')
+    			  }
+    			  else
+    			  {
+    				  //email이 있는 경우 => id출력 
+    				  //shim => s***
+    				  $('#id_email').html('<span style="color:blue">'+res+"</span>");
+    			  }
+    		  }
+    		 /* fail: function (request, status, error) {
+    		      console.log("code: " + request.status)
+    		      // 404 , 500 , 403 , 412...
+    		      console.log("message: " + request.responseText)
+    		      
+    		      console.log("error: " + error);
+    		  } */
+    	  })
+      })
+      $('#telBtn').on('click',function(){
+    	  
+      })
+  });
+</script>
 </head>
 <body>
-	<div id="tabs">
-  <ul>
-    <li><a href="#tabs-1">Nunc tincidunt</a></li>
-    <li><a href="#tabs-2">Proin dolor</a></li>
-    <li><a href="#tabs-3">Aenean lacinia</a></li>
-  </ul>
-  <div id="tabs-1">
-    <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
-  </div>
-  <div id="tabs-2">
-    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
-  </div>
-  <div id="tabs-3">
-    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
-    <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
-  </div>
+<div class="wrapper row3">
+   <main class="container clear">
+    <h2 class="sectiontitle">아이디 찾기</h2>
+    <div class="row">
+      <div id="tabs">
+		  <ul>
+		    <li><a href="#tabs-1">이메일로 찾기</a></li>
+		    <li><a href="#tabs-2">전화번호로 찾기</a></li>
+		  </ul>
+		  <div id="tabs-1">
+		    <table class="table">
+		     <tr>
+		       <td class="inline">
+		        이메일:<input type=text id="email" class="input-sm">
+		        <input type=button value="검색"
+		          class="btn btn-sm btn-danger" id="emailBtn">
+		       </td>
+		     </tr>
+		     <tr>
+		       <td class="text-center">
+		        <h3 id="id_email"></h3>
+		       </td>
+		     </tr>
+		    </table>
+		  </div>
+		  <div id="tabs-2">
+		    <table class="table">
+		     <tr>
+		       <td class="inline">
+		        전화번호:<input type=text id="tel" class="input-sm">
+		        <input type=button value="검색"
+		          class="btn btn-sm btn-danger" id="telBtn">
+		       </td>
+		     </tr>
+		     <tr>
+		       <td class="text-center">
+		        <h3 id="id_tel"></h3>
+		       </td>
+		     </tr>
+		    </table>
+		  </div>
+		  
+		</div>
+    </div>
+   </main>
 </div>
 </body>
 </html>

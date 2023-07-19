@@ -98,15 +98,15 @@ $(function(){
         <ul>
           <li><a href="../member/join.do">회원가입</a></li>
           <li><a href="../member/idfind.do">아이디찾기</a></li>
-          <li><a href="pages/sidebar-left.html">비밀번호찾기</a></li>
+          <li><a href="../member/paswordfind.do">비밀번호찾기</a></li>
         </ul>
       </li>
       </c:if>
       <c:if test="${sessionScope.id!=null }"><%-- 로그인된 상태 --%>
       <li><a class="drop" href="#">회원</a>
         <ul>
-          <li><a href="pages/gallery.html">회원수정</a></li>
-          <li><a href="pages/full-width.html">회원탈퇴</a></li>
+          <li><a href="../member/member_update.do">회원수정</a></li>
+          <li><a href="../member/member_delete.do">회원탈퇴</a></li>
         </ul>
       </li>
       </c:if>
@@ -151,7 +151,7 @@ $(function(){
           <li><a href="../notice/notice_list.do">공지사항</a></li>
           <li><a href="../board/list.do">자유게시판</a></li>
          <c:if test="${sessionScope.id!=null }">
-          <li><a href="pages/sidebar-left.html">묻고답하기</a></li>
+          <li><a href="../replyboard/list.do">묻고답하기</a></li>
          </c:if>
         </ul>
       </li>

@@ -186,8 +186,14 @@
        <Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxActive="10" maxIdle="8" maxWait="-1" name="jdbc/oracle" password="happy" type="javax.sql.DataSource" url="jdbc:oracle:thin:@211.238.142.118        :1521:XE" username="hr"/>
       </Context>
       
-      <Context docBase="0gotgan2" path="/0gotgan0" reloadable="true" source="org.eclipse.jst.jee.server:0gotgan2">
-        <Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxActive="10" maxIdle="8" maxWait="-1" name="jdbc/oracle" password="happy" type="javax.sql.DataSource" url="jdbc:oracle:thin:@211.238.142.118        :1521:XE" username="hr"/>
+      
+      
+      
+      <Context docBase="05gotgan" path="/05gotgan" reloadable="true" source="org.eclipse.jst.jee.server:05gotgan">
+      <Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxActive="10" maxIdle="8" maxWait="-1" name="jdbc/oracle" password="happy" type="javax.sql.DataSource" url="jdbc:oracle:thin:@211.238.142.118        :1521:XE" username="hr"/>
+      </Context>
+      <Context docBase="01yori" path="/01yori" reloadable="true" source="org.eclipse.jst.jee.server:01yori">
+      <Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxActive="10" maxIdle="8" maxWait="-1" name="jdbc/oracle" password="happy" type="javax.sql.DataSource" url="jdbc:oracle:thin:@211.238.142.118        :1521:XE" username="hr"/>
       </Context>
       </Host>
     </Engine>

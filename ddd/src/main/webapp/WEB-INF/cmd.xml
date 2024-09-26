@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+	<bean id="mypage" class="com.sist.model.MyPageModel"/>
+	<bean id="home.do" class="com.sist.model.HomeModel"/>
+	<bean id="adminpage.do" class="com.sist.model.AdminPageModel"/>
+	<bean id="main.do" class="com.sist.model.MainModel"/>
+	<bean id="nav.do" class="com.sist.model.NavModel"/>
+</beans>
